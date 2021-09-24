@@ -9,7 +9,7 @@ http://localhost:8090/h2/  (h2 database) check data change after user click the 
 
 
 According to different staff the user sign up. Use postman Send a POST request to: http://localhost:8090/api/v1/signup/account or http://localhost:8090/api/v1/signup/card or 
-http://localhost:8090/api/v1/signup/loan with JSON body of User.
+http://localhost:8090/api/v1/signup/loan with JSON body.
 
 
 
