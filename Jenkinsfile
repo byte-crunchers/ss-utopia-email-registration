@@ -79,16 +79,14 @@ pipeline {
         steps {
           script{
               
-            sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration:${GIT_COMMIT_MSG}'
-            sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration:latest'
+            sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration'
           }
         }
       }
       
       stage('Cleaning up') {
         steps{
-            sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration:${GIT_COMMIT_MSG}"
-            sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration:latest"
+            sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration"
         }
         }
     }
