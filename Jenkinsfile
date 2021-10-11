@@ -31,7 +31,8 @@ pipeline {
      stage("MVN Test") {  
         steps {
           withMaven(maven: 'maven') {
-            sh 'mvn clean test'
+           // sh 'mvn clean test -Dmaven.test.skip'
+           sh 'mvn clean package -Dmaven.test.skip'
           }
         }
       }
