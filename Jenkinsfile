@@ -79,14 +79,14 @@ pipeline {
         steps {
           script{
               
-            sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration'
+            sh 'docker push -a ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration'
           }
         }
       }
       
       stage('Cleaning up') {
         steps{
-            sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/ss-utopia-email-registration"
+            sh "docker system prune"
         }
         }
     }
