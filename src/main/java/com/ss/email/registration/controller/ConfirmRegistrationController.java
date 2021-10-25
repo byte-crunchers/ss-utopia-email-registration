@@ -54,7 +54,7 @@ public class ConfirmRegistrationController {
     public String confirmLoan(@RequestParam("token") String token) {
         return registrationService.confirmLoanToken(token);
     }
-    @GetMapping(path = "/test", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(path = "/test")
 	public String Test(){
 			return "Hi";
 	}
