@@ -2,7 +2,7 @@
 Prerequisite: MailDev, H2, Postman
 
 
-http://localhost:1080/#/  (mailDev) use to check email after sign up
+http://0.0.0.0:1080 (mailDev) use to check email after sign up
 
 
 http://localhost:8090/h2/  (h2 database) check data change after user click the confirm link. JDBC LINK: jdbc:h2:mem:springAuth
