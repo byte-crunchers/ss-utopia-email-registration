@@ -2,6 +2,7 @@
 Prerequisite: MailDev, H2, Postman
 
 run maildev command in your terminal
+
 http://0.0.0.0:1080 (mailDev) use to check email after sign up
 
 
