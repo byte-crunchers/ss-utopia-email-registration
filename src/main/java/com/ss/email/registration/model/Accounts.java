@@ -7,8 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,11 +22,28 @@ public class Accounts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int user_id;
     private String account_type;
+
     private float balance;
-    private Timestamp payment_due;
-    private Timestamp due_date;
+
+    private float debt_interest;
+
+    private float payment_due;
+
+    private Date due_date;
+
     private int limit;
-    private boolean is_active = false;
+
+    private boolean active ;
+
+    private boolean approved ;
+
+    private boolean confirmed;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "users_id")
+    private Users users;
+
 }

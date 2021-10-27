@@ -8,6 +8,7 @@ import com.ss.email.registration.repository.LoanRepository;
 import com.ss.email.registration.security.token.ConfirmationToken;
 import com.ss.email.registration.security.token.ConfirmationTokenService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class LoansService  {
     private final LoanRepository loanRepository;
     private final ConfirmationTokenService confirmationTokenService;
 
+    @Autowired
     public LoansService( LoanRepository loanRepository, ConfirmationTokenService confirmationTokenService) {
 
         this.loanRepository = loanRepository;
@@ -33,9 +35,9 @@ public class LoansService  {
         if (loanExists) {
 
             Loans loansPrevious = loanRepository.findById(loanRegistrationRequest.getLoan_id()).get();
-            boolean isActive = loansPrevious.is_active();
+            boolean isConfirmed = loansPrevious.isConfirmed();
 
-            if (!isActive) {
+            if (!isConfirmed) {
                 String token = UUID.randomUUID().toString();
 
                 //A method to save user and token in this class
@@ -57,8 +59,8 @@ public class LoansService  {
         confirmationTokenService.saveConfirmationToken(confirmationToken);
     }
 
-    public int enableAccount(long id) {
-        return loanRepository.activeLoan(id);
+    public int enableLoan(long id) {
+        return loanRepository.confirmLoan(id);
 
     }
 }

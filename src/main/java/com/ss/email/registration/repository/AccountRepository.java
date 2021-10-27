@@ -11,6 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AccountRepository extends JpaRepository<Accounts, Long> {
     @Transactional
     @Modifying
-    @Query("UPDATE Accounts a SET a.is_active=true WHERE a.id=?1")
-    int activeAccount(long id);
+    @Query("UPDATE Accounts a SET a.confirmed=true WHERE a.id=?1")
+    int confirmAccount(long id);
 }

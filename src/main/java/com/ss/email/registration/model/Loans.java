@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,14 +20,20 @@ import java.sql.Timestamp;
 @Table(name="LOANS")
 public class Loans {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int user_id;
-    private float interest_rate;
-    private float balance;
-    private Timestamp payment_due;
-    private Timestamp due_date;
-    private boolean is_active = false;
+    private Float balance, interestRate, payment_due, monthlyPayment;
+    private LocalDate dueDate;
+    private boolean active;
+    private String loan_type;
+
+    private boolean approved ;
+
+    private boolean confirmed;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "users_id")
+    private Users users;
 
 }

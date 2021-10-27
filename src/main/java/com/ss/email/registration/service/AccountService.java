@@ -34,9 +34,9 @@ public class AccountService {
         if (accountExists) {
 
             Accounts accountsPrevious = accountRepository.findById(accountRegistrationRequest.getAccount_id()).get();
-            boolean isActive = accountsPrevious.is_active();
+            boolean isConfirmed = accountsPrevious.isConfirmed();
 
-            if (!isActive) {
+            if (!isConfirmed) {
                 String token = UUID.randomUUID().toString();
 
                 //A method to save user and token in this class
@@ -66,7 +66,7 @@ public class AccountService {
     }
 
     public int enableAccount(long id) {
-        return accountRepository.activeAccount(id);
+        return accountRepository.confirmAccount(id);
 
     }
 

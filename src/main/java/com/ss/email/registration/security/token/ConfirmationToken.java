@@ -3,10 +3,12 @@ package com.ss.email.registration.security.token;
 import com.ss.email.registration.model.Accounts;
 
 import com.ss.email.registration.model.Loans;
+import com.ss.email.registration.model.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -39,15 +41,16 @@ public class ConfirmationToken {
             name = "accounts_id")
     private Accounts accounts;
 
-//    @ManyToOne
-//    @JoinColumn(nullable = false,
-//            name = "card_id")
-//    private Cards cards;
-
     @ManyToOne
     @JoinColumn(
             name = "loans_id")
     private Loans loans;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "users_id")
+    private Users users;
 
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, Accounts accounts,Loans loans) {
@@ -72,6 +75,14 @@ public class ConfirmationToken {
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.loans = loans;
+
+    }
+
+    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, Users users) {
+        this.token = token;
+        this.createdAt = createdAt;
+        this.expiresAt = expiresAt;
+        this.users = users;
 
     }
 

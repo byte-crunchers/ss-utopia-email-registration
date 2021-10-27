@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import org.hibernate.validator.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
@@ -23,14 +25,38 @@ public class Users implements UserDetails {
     private Long id;
 
 
-    private String first_name;
+
     private String username;
-    private String last_name;
-    private String email;
+
     private String password;
+
+    private LocalDate dob;
+
+    private Long ssn;
+
+    private String email;
+
+    private String first_name;
+
+    private String last_name;
+
+    private boolean active;
+
+    private String address, city, state;
+
+    private Integer zip;
+
+    private Long phone;
+
     private boolean is_admin;
 
+    private boolean approved ;
 
+    private boolean confirmed;
+
+    private String roles = "";
+
+    private String permissions = "";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,3 +93,4 @@ public class Users implements UserDetails {
         return false;
     }
 }
+
