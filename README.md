@@ -20,7 +20,8 @@ http://localhost:8090/api/v1/signup/loan with JSON body.
 after seding post request confirm email should be receive in MailDev
 
 
-<img width="1163" alt="Screen Shot 2021-09-24 at 12 58 18 AM" src="https://user-images.githubusercontent.com/87037749/134639432-1b7ac01a-6381-4356-90ee-5ce6eef992ea.png">
+
+<img width="1639" alt="Screen Shot 2021-10-26 at 8 40 49 PM" src="https://user-images.githubusercontent.com/87037749/138980853-6f9c3d7a-4c3c-434d-9576-50841c8194e3.png">
 
 
 then click the link. 
