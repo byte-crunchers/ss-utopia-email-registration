@@ -2,6 +2,7 @@ package com.ss.email.registration.controller;
 
 import com.ss.email.registration.model.AccountRegistrationRequest;
 import com.ss.email.registration.model.LoanRegistrationRequest;
+import com.ss.email.registration.model.UserRegistrationRequest;
 import com.ss.email.registration.service.AccountService;
 import com.ss.email.registration.service.LoansService;
 import com.ss.email.registration.service.RegistrationService;
@@ -28,6 +29,12 @@ public class ConfirmRegistrationController {
 
     }
 
+    @PostMapping(path = "user")
+    public String accountRegister(@RequestBody UserRegistrationRequest request) {
+        return registrationService.UserConfirm(request);
+
+    }
+
     @PostMapping(path = "card")
     public String cardRegister(@RequestBody AccountRegistrationRequest request) {
         return registrationService.CardConfirm(request);
@@ -49,8 +56,15 @@ public class ConfirmRegistrationController {
     public String confirmCard(@RequestParam("token") String token) {
         return registrationService.confirmAccountToken(token);
     }
+
     @GetMapping(path = "confirm/loan")
     public String confirmLoan(@RequestParam("token") String token) {
         return registrationService.confirmLoanToken(token);
     }
+
+    @GetMapping(path = "confirm/user")
+    public String confirmUser(@RequestParam("token") String token) {
+        return registrationService.confirmUserToken(token);
+    }
+
 }

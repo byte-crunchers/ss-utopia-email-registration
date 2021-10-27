@@ -3,6 +3,7 @@ package com.ss.email.registration.service;
 import com.ss.email.registration.email.EmailSender;
 import com.ss.email.registration.model.AccountRegistrationRequest;
 import com.ss.email.registration.model.LoanRegistrationRequest;
+import com.ss.email.registration.model.UserRegistrationRequest;
 import com.ss.email.registration.security.EmailValidator;
 import com.ss.email.registration.security.token.ConfirmationToken;
 import com.ss.email.registration.security.token.ConfirmationTokenService;
@@ -16,13 +17,15 @@ import java.util.Optional;
 public class RegistrationService {
 
     private final AccountService accountService;
+    private final UserService userService;
     private final LoansService loansService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmTokenService;
     private final EmailSender emailSender;
 
-    public RegistrationService(AccountService accountService, LoansService loansService, EmailValidator emailValidator, ConfirmationTokenService confirmTokenService, EmailSender emailSender) {
+    public RegistrationService(AccountService accountService, UserService userService, LoansService loansService, EmailValidator emailValidator, ConfirmationTokenService confirmTokenService, EmailSender emailSender) {
         this.accountService = accountService;
+        this.userService = userService;
         this.loansService = loansService;
         this.emailValidator = emailValidator;
         this.confirmTokenService = confirmTokenService;
@@ -79,6 +82,21 @@ public class RegistrationService {
         }
     }
 
+    public String UserConfirm(UserRegistrationRequest userRegistrationRequest) {
+        boolean isValidEmail = emailValidator.test(userRegistrationRequest.getEmail());
+        if (isValidEmail) {
+            String tokenForNewUser = userService.signUpUser(userRegistrationRequest);
+
+            //Since, we are running the spring boot application in localhost, we are hardcoding the
+            //url of the server. We are creating a POST request with token param
+            String link = "http://localhost:8090/api/v1/signup/confirm/user?token=" + tokenForNewUser;
+            emailSender.sendEmail(userRegistrationRequest.getEmail(), buildEmail(userRegistrationRequest.getFirstName(), link));
+            return tokenForNewUser;
+        } else {
+            throw new IllegalStateException(String.format("Email %s, not valid", userRegistrationRequest.getEmail()));
+        }
+    }
+
     @Transactional
     public String confirmAccountToken(String token) {
         Optional<ConfirmationToken> confirmToken = confirmTokenService.getToken(token);
@@ -125,7 +143,33 @@ public class RegistrationService {
 
         confirmTokenService.setConfirmedAt(token);
 
-        loansService.enableAccount(confirmToken.get().getLoans().getId());
+        loansService.enableLoan(confirmToken.get().getLoans().getId());
+
+        //Returning confirmation message if the token matches
+        return "Confirmed. Thank you for using our service!";
+    }
+
+    @Transactional
+    public String confirmUserToken(String token) {
+        Optional<ConfirmationToken> confirmToken = confirmTokenService.getToken(token);
+
+        if (confirmToken.isEmpty()) {
+            throw new IllegalStateException("Token not found!");
+        }
+
+        if (confirmToken.get().getConfirmedAt() != null) {
+            throw new IllegalStateException("Email is already confirmed");
+        }
+
+        LocalDateTime expiresAt = confirmToken.get().getExpiresAt();
+
+        if (expiresAt.isBefore(LocalDateTime.now())) {
+            throw new IllegalStateException("Token is already expired!");
+        }
+
+        confirmTokenService.setConfirmedAt(token);
+
+        userService.enableUser(confirmToken.get().getUsers().getId());
 
         //Returning confirmation message if the token matches
         return "Confirmed. Thank you for using our service!";
@@ -151,7 +195,7 @@ public class RegistrationService {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your signup</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -189,7 +233,7 @@ public class RegistrationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for choosing our service. Please click on the below link to activate your signup: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for choosing our service. Please click on the below link to confirm your signup: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Confirm Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

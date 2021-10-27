@@ -11,6 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface LoanRepository extends JpaRepository<Loans, Long> {
     @Transactional
     @Modifying
-    @Query("UPDATE Loans l SET l.is_active=true WHERE l.id=?1")
-    int activeLoan(long id);
+    @Query("UPDATE Loans l SET l.confirmed=true WHERE l.id=?1")
+    int confirmLoan(long id);
 }
