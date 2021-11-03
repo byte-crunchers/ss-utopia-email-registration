@@ -1,8 +1,8 @@
 package com.ss.email.registration.service;
 
 
-import com.ss.email.registration.model.LoanRegistrationRequest;
-import com.ss.email.registration.model.Loans;
+import com.ss.email.registration.dto.LoanRegistrationRequest;
+import com.ss.email.registration.entity.Loans;
 import com.ss.email.registration.repository.LoanRepository;
 
 import com.ss.email.registration.security.token.ConfirmationToken;
@@ -38,18 +38,16 @@ public class LoansService  {
             boolean isConfirmed = loansPrevious.isConfirmed();
 
             if (!isConfirmed) {
-                String token = UUID.randomUUID().toString();
-
+                String uuid = UUID.randomUUID().toString();
                 //A method to save user and token in this class
-                saveConfirmationToken(loansPrevious, token);
+                saveConfirmationToken(loansPrevious, uuid);
 
-                return token;
+                return uuid;
 
             }
             throw new IllegalStateException(String.format("loan with id %s already sign up!", loanRegistrationRequest.getLoan_id()));
         }
-
-        return UUID.randomUUID().toString();
+        throw new IllegalStateException(String.format("loan with id %s does not exist!", loanRegistrationRequest.getLoan_id()));
     }
 
 

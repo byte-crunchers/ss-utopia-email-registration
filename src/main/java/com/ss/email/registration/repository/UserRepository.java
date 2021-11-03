@@ -1,6 +1,6 @@
 package com.ss.email.registration.repository;
 
-import com.ss.email.registration.model.Users;
+import com.ss.email.registration.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

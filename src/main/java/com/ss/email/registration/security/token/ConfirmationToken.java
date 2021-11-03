@@ -1,17 +1,19 @@
 package com.ss.email.registration.security.token;
 
-import com.ss.email.registration.model.Accounts;
+import com.ss.email.registration.entity.Accounts;
 
-import com.ss.email.registration.model.Loans;
-import com.ss.email.registration.model.Users;
+import com.ss.email.registration.entity.Loans;
+import com.ss.email.registration.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
+import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -19,7 +21,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 
-@Table(name="CONFIRMATIONTOKEN")
+@Table(name="CONFIRMATION")
 public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,18 +40,18 @@ public class ConfirmationToken {
 
     @ManyToOne
     @JoinColumn(
-            name = "accounts_id")
+            name = "account")
     private Accounts accounts;
 
     @ManyToOne
     @JoinColumn(
-            name = "loans_id")
+            name = "loan")
     private Loans loans;
 
 
     @ManyToOne
     @JoinColumn(
-            name = "users_id")
+            name = "user")
     private Users users;
 
 

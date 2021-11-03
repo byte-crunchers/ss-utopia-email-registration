@@ -1,4 +1,4 @@
-package com.ss.email.registration.model;
+package com.ss.email.registration.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import org.hibernate.validator.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -42,7 +41,7 @@ public class Users implements UserDetails {
 
     private boolean active;
 
-    private String address, city, state;
+    private String street_address, city, state;
 
     private Integer zip;
 
@@ -54,9 +53,9 @@ public class Users implements UserDetails {
 
     private boolean confirmed;
 
-    private String roles = "";
-
-    private String permissions = "";
+//    private String roles = "";
+//
+//    private String permissions = "";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
