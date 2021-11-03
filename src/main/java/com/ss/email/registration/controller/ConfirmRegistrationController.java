@@ -1,13 +1,15 @@
 package com.ss.email.registration.controller;
 
-import com.ss.email.registration.model.AccountRegistrationRequest;
-import com.ss.email.registration.model.LoanRegistrationRequest;
-import com.ss.email.registration.model.UserRegistrationRequest;
+import com.ss.email.registration.dto.AccountRegistrationRequest;
+import com.ss.email.registration.dto.LoanRegistrationRequest;
+import com.ss.email.registration.dto.UserRegistrationRequest;
 import com.ss.email.registration.service.AccountService;
 import com.ss.email.registration.service.LoansService;
 import com.ss.email.registration.service.RegistrationService;
+import com.ss.email.registration.service.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping(path = "/api/v1/signup")
@@ -49,22 +51,26 @@ public class ConfirmRegistrationController {
 
     @GetMapping(path = "confirm/account")
     public String confirmAccount(@RequestParam("token") String token) {
-        return registrationService.confirmAccountToken(token);
+        String decodeToken = Util.uuidFromBase64(token);
+        return registrationService.confirmAccountToken(decodeToken);
     }
 
     @GetMapping(path = "confirm/card")
     public String confirmCard(@RequestParam("token") String token) {
-        return registrationService.confirmAccountToken(token);
+        String decodeToken = Util.uuidFromBase64(token);
+        return registrationService.confirmAccountToken(decodeToken);
     }
 
     @GetMapping(path = "confirm/loan")
     public String confirmLoan(@RequestParam("token") String token) {
-        return registrationService.confirmLoanToken(token);
+        String decodeToken = Util.uuidFromBase64(token);
+        return registrationService.confirmLoanToken(decodeToken);
     }
 
     @GetMapping(path = "confirm/user")
     public String confirmUser(@RequestParam("token") String token) {
-        return registrationService.confirmUserToken(token);
+        String decodeToken = Util.uuidFromBase64(token);
+        return registrationService.confirmUserToken(decodeToken);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ss.email.registration.service;
 
-import com.ss.email.registration.model.AccountRegistrationRequest;
-import com.ss.email.registration.model.Accounts;
+import com.ss.email.registration.dto.AccountRegistrationRequest;
+import com.ss.email.registration.entity.Accounts;
 import com.ss.email.registration.repository.AccountRepository;
 
 import com.ss.email.registration.security.token.ConfirmationToken;
@@ -37,25 +37,17 @@ public class AccountService {
             boolean isConfirmed = accountsPrevious.isConfirmed();
 
             if (!isConfirmed) {
-                String token = UUID.randomUUID().toString();
 
+                String uuid = UUID.randomUUID().toString();
                 //A method to save user and token in this class
-                saveConfirmationToken(accountsPrevious, token);
-
-                return token;
+                saveConfirmationToken(accountsPrevious, uuid);
+                return uuid;
 
             }
             throw new IllegalStateException(String.format("Account with id %s already sign up!", accountRegistrationRequest.getAccount_id()));
         }
 
-        //Creating a token from UUID
-
-        //Getting the confirmation token and then saving it
-//        saveConfirmationToken(accountsPrevious, token);
-
-
-        //Returning token
-        return UUID.randomUUID().toString();
+        throw new IllegalStateException(String.format("account with id %s does not exist!", accountRegistrationRequest.getAccount_id()));
     }
 
 
