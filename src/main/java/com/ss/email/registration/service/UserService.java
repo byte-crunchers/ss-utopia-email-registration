@@ -1,15 +1,12 @@
 package com.ss.email.registration.service;
 
-import com.ss.email.registration.model.LoanRegistrationRequest;
-import com.ss.email.registration.model.Loans;
-import com.ss.email.registration.model.UserRegistrationRequest;
-import com.ss.email.registration.model.Users;
+import com.ss.email.registration.dto.UserRegistrationRequest;
+import com.ss.email.registration.entity.Users;
 import com.ss.email.registration.repository.UserRepository;
 import com.ss.email.registration.security.PasswordEncoder;
 import com.ss.email.registration.security.token.ConfirmationToken;
 import com.ss.email.registration.security.token.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,18 +45,16 @@ public class UserService implements UserDetailsService {
             boolean isConfirmed = usersPrevious.isConfirmed();
 
             if (!isConfirmed) {
-                String token = UUID.randomUUID().toString();
-
+                String uuid = UUID.randomUUID().toString();
                 //A method to save user and token in this class
-                saveConfirmationToken(usersPrevious, token);
-
-                return token;
+                saveConfirmationToken(usersPrevious, uuid);
+                return uuid;
 
             }
             throw new IllegalStateException(String.format("user with id %s already sign up!", userRegistrationRequest.getUser_id()));
         }
 
-        return UUID.randomUUID().toString();
+        throw new IllegalStateException(String.format("user with id %s does not exist!", userRegistrationRequest.getUser_id()));
     }
 
     private void saveConfirmationToken(Users users, String token) {

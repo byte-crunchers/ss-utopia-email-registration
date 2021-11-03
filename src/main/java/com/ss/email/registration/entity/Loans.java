@@ -1,4 +1,4 @@
-package com.ss.email.registration.model;
+package com.ss.email.registration.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Data

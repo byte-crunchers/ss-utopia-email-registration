@@ -1,20 +1,31 @@
 package com.ss.email.registration.service;
 
+import com.netflix.discovery.EurekaClient;
 import com.ss.email.registration.email.EmailSender;
-import com.ss.email.registration.model.AccountRegistrationRequest;
-import com.ss.email.registration.model.LoanRegistrationRequest;
-import com.ss.email.registration.model.UserRegistrationRequest;
+import com.ss.email.registration.dto.AccountRegistrationRequest;
+import com.ss.email.registration.dto.LoanRegistrationRequest;
+import com.ss.email.registration.dto.UserRegistrationRequest;
 import com.ss.email.registration.security.EmailValidator;
 import com.ss.email.registration.security.token.ConfirmationToken;
 import com.ss.email.registration.security.token.ConfirmationTokenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
 public class RegistrationService {
+
+    @Qualifier("eurekaClient")
+    @Autowired
+    private EurekaClient discoveryClient;
 
     private final AccountService accountService;
     private final UserService userService;
@@ -41,7 +52,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://localhost:8090/api/v1/signup/confirm/account?token=" + tokenForNewUser;
+            String link ="http://192.168.0.86:8090/api/v1/signup/confirm/account?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail( accountRegistrationRequest.getEmail(), buildEmail( accountRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -58,7 +69,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://localhost:8090/api/v1/signup/confirm/card?token=" + tokenForNewUser;
+            String link = "http://192.168.0.86:8090/api/v1/signup/confirm/card?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail( accountRegistrationRequest.getEmail(), buildEmail( accountRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -67,14 +78,14 @@ public class RegistrationService {
     }
 
 
-    public String LoanConfirm(LoanRegistrationRequest loanRegistrationRequest) {
+    public String LoanConfirm(LoanRegistrationRequest loanRegistrationRequest){
         boolean isValidEmail = emailValidator.test(loanRegistrationRequest.getEmail());
         if (isValidEmail) {
             String tokenForNewUser = loansService.signUpLoan(loanRegistrationRequest);
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://localhost:8090/api/v1/signup/confirm/loan?token=" + tokenForNewUser;
+            String link = "http://192.168.0.86:8090/api/v1/signup/confirm/loan?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail(loanRegistrationRequest.getEmail(), buildEmail(loanRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -89,7 +100,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://localhost:8090/api/v1/signup/confirm/user?token=" + tokenForNewUser;
+            String link = "http://192.168.0.86:8090/api/v1/signup/confirm/user?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail(userRegistrationRequest.getEmail(), buildEmail(userRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {

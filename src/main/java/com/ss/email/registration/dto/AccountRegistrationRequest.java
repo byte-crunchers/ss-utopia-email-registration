@@ -1,4 +1,4 @@
-package com.ss.email.registration.model;
+package com.ss.email.registration.dto;
 
 public class AccountRegistrationRequest  {
     private final String email;
