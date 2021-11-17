@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ss-utopia-email-registration" target="15" />
+      <module name="ss-utopia-email-registration" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
