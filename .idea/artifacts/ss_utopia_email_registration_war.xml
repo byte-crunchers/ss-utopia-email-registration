@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="ss-utopia-email-registration:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ss-utopia-email-registration_war.war">
+      <element id="artifact" artifact-name="ss-utopia-email-registration:war exploded" />
+    </root>
+  </artifact>
+</component>
