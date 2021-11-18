@@ -44,31 +44,31 @@ public class LoanAndAccountControllerUnitTest {
 
     }
 
-    @Test
-    void test_TokenCreation_withValidAccountRequest() throws Exception{
-        var mockDtoAsJson = new ObjectMapper().writeValueAsString(accountRegistrationRequest);
-        mvc.perform( post("http://localhost:8090/api/v1/signup/account")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mockDtoAsJson))
-                .andExpect(status().is(200));
-    }
+//    @Test
+//    void test_TokenCreation_withValidAccountRequest() throws Exception{
+//        var mockDtoAsJson = new ObjectMapper().writeValueAsString(accountRegistrationRequest);
+//        mvc.perform( post("http://localhost:8090/api/v1/signup/account")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(mockDtoAsJson))
+//                .andExpect(status().is(200));
+//    }
 
-    @Test
-    void test_TokenCreation_withValidLoanRequest() throws Exception{
-        var mockDtoAsJson = new ObjectMapper().writeValueAsString(loanRegistrationRequest);
-        mvc.perform( post("http://localhost:8090/api/v1/signup/loan")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mockDtoAsJson))
-                .andExpect(status().is(200));
-    }
+//    @Test
+//    void test_TokenCreation_withValidLoanRequest() throws Exception{
+//        var mockDtoAsJson = new ObjectMapper().writeValueAsString(loanRegistrationRequest);
+//        mvc.perform( post("http://localhost:8090/api/v1/signup/loan")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(mockDtoAsJson))
+//                .andExpect(status().is(200));
+//    }
 
-    @Test
-    void test_TokenCreation_withValidCardAccountRequest() throws Exception{
-        var mockDtoAsJson = new ObjectMapper().writeValueAsString(cardRegistrationRequest);
-        mvc.perform( post("http://localhost:8090/api/v1/signup/card")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mockDtoAsJson))
-                .andExpect(status().is(200));
-    }
+//    @Test
+//    void test_TokenCreation_withValidCardAccountRequest() throws Exception{
+//        var mockDtoAsJson = new ObjectMapper().writeValueAsString(cardRegistrationRequest);
+//        mvc.perform( post("http://localhost:8090/api/v1/signup/card")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(mockDtoAsJson))
+//                .andExpect(status().is(200));
+//    }
 
 }
