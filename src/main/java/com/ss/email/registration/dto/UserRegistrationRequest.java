@@ -2,7 +2,7 @@ package com.ss.email.registration.dto;
 
 
 public class UserRegistrationRequest {
-    private final String email;
+    private final  String email;
     private final String firstName;
     private final long user_id;
 
@@ -11,6 +11,8 @@ public class UserRegistrationRequest {
         this.firstName = firstName;
         this.user_id = user_id;
     }
+
+
 
     public String getEmail() {
         return email;

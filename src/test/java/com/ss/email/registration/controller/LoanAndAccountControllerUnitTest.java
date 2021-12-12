@@ -19,15 +19,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class LoanAndAccountControllerUnitTest {
 
-
-    AccountRegistrationRequest accountRegistrationRequest = new AccountRegistrationRequest(
-            "jimchao@email.com","Jim",1);
-
-    AccountRegistrationRequest cardRegistrationRequest = new AccountRegistrationRequest(
-            "jimchao@email.com","Jim",2);
-
-    LoanRegistrationRequest loanRegistrationRequest = new LoanRegistrationRequest(
-            "jimchao@email.com","Tim",1);
+//
+//    AccountRegistrationRequest accountRegistrationRequest = new AccountRegistrationRequest(
+//            "jimchao@email.com","Jim",1);
+//
+//    AccountRegistrationRequest cardRegistrationRequest = new AccountRegistrationRequest(
+//            "jimchao@email.com","Jim",2);
+//
+//    LoanRegistrationRequest loanRegistrationRequest = new LoanRegistrationRequest(
+//            "jimchao@email.com","Tim",1);
 
     MockMvc mvc;
 

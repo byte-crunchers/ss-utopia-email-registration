@@ -28,7 +28,7 @@ public class Loans {
 
     private boolean confirmed;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "users_id")
     private Users users;

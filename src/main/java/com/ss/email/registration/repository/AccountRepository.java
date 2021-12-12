@@ -12,5 +12,5 @@ public interface AccountRepository extends JpaRepository<Accounts, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Accounts a SET a.confirmed=true WHERE a.id=?1")
-    int confirmAccount(long id);
+    int confirmAccount(Long id);
 }

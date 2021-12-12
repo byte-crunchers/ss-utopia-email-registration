@@ -57,7 +57,7 @@ public class AccountService {
         confirmationTokenService.saveConfirmationToken(confirmationToken);
     }
 
-    public int enableAccount(long id) {
+    public int enableAccount(Long id) {
         return accountRepository.confirmAccount(id);
 
     }

@@ -52,7 +52,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link ="http://18.222.11.44:8090/api/v1/signup/confirm/account?token=" + Util.uuidToBase64(tokenForNewUser);
+            String link ="http://192.168.1.194:8090/api/v1/signup/confirm/account?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail( accountRegistrationRequest.getEmail(), buildEmail( accountRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -69,7 +69,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://18.222.11.44:8090/api/v1/signup/confirm/card?token=" + Util.uuidToBase64(tokenForNewUser);
+            String link = "http://192.168.1.194:8090/api/v1/signup/confirm/card?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail( accountRegistrationRequest.getEmail(), buildEmail( accountRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -85,7 +85,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://18.222.11.44:8090/api/v1/signup/confirm/loan?token=" + Util.uuidToBase64(tokenForNewUser);
+            String link = "http://192.168.1.194:8090/api/v1/signup/confirm/loan?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail(loanRegistrationRequest.getEmail(), buildEmail(loanRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {
@@ -100,7 +100,7 @@ public class RegistrationService {
 
             //Since, we are running the spring boot application in localhost, we are hardcoding the
             //url of the server. We are creating a POST request with token param
-            String link = "http://18.222.11.44:8090/api/v1/signup/confirm/user?token=" + Util.uuidToBase64(tokenForNewUser);
+            String link = "http://192.168.1.194:8090/api/v1/signup/confirm/user?token=" + Util.uuidToBase64(tokenForNewUser);
             emailSender.sendEmail(userRegistrationRequest.getEmail(), buildEmail(userRegistrationRequest.getFirstName(), link));
             return tokenForNewUser;
         } else {

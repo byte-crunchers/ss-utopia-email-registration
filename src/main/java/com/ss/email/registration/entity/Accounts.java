@@ -18,19 +18,20 @@ import java.util.Date;
 public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     private String account_type;
 
     private float balance;
 
-    private float debt_interest;
-
     private float payment_due;
 
     private Date due_date;
 
-    private int limit;
+    private float credit_limit;
+
+    private float debt_interest;
 
     private boolean active ;
 
@@ -39,7 +40,7 @@ public class Accounts {
     private boolean confirmed;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "users_id")
     private Users users;

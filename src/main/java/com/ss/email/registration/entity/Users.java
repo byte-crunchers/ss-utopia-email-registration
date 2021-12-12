@@ -23,35 +23,41 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     private String username;
 
-    private String password;
-
-    private LocalDate dob;
-
-    private Long ssn;
-
     private String email;
+
+    private String password;
 
     private String first_name;
 
     private String last_name;
 
+    private boolean is_admin;
+
+
+
+    private Long ssn;
+
     private boolean active;
+
+    private boolean confirmed;
+
+    private Long phone;
+
+    private LocalDate dob;
 
     private String street_address, city, state;
 
     private Integer zip;
 
-    private Long phone;
+    private boolean approved;
 
-    private boolean is_admin;
+    private String secret_name;
 
-    private boolean approved ;
 
-    private boolean confirmed;
+
+
 
 //    private String roles = "";
 //

@@ -7,10 +7,14 @@ import com.ss.email.registration.service.AccountService;
 import com.ss.email.registration.service.LoansService;
 import com.ss.email.registration.service.RegistrationService;
 import com.ss.email.registration.service.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/api/v1/signup")
 public class ConfirmRegistrationController {
@@ -71,6 +75,13 @@ public class ConfirmRegistrationController {
     public String confirmUser(@RequestParam("token") String token) {
         String decodeToken = Util.uuidFromBase64(token);
         return registrationService.confirmUserToken(decodeToken);
+    }
+
+    @GetMapping(value = "/test")
+    @ResponseStatus(HttpStatus.OK)
+    public String Test(){
+
+        return "OK";
     }
 
 }
